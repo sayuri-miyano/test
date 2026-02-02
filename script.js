@@ -11,6 +11,19 @@ function abrirDieta() {
   document.getElementById('treino').classList.remove('active');
 }
 
+/* ===== POST-IT TREINO E DIETA ===== */
+['textoTreino','textoDieta'].forEach(id => {
+  const el = document.getElementById(id);
+
+  // Carrega conteúdo salvo no localStorage
+  el.value = JSON.parse(localStorage.getItem(id)) ?? '';
+
+  // Salva a cada alteração
+  el.addEventListener('input', () => {
+    localStorage.setItem(id, JSON.stringify(el.value));
+  });
+});
+
 /* ===== LOCAL STORAGE ===== */
 function salvar(key, valor) {
   localStorage.setItem(key, JSON.stringify(valor));
