@@ -1,17 +1,17 @@
 :root {
-  --bg: #d7f7ff;
-  --card: #b0e7fb;
-  --primary: #b0e7fb;
-  --text: #060507;
-  --muted: #1c1a22;
-  --radius-md: 18px;
-  --radius-sm: 12px;
+  --lavanda: #E6E6FA;
+  --lavanda-claro: #F8F8FF;
+  --lavanda-escuro: #C8C8FF;
+  --bg: #F5F0FF;
+  --card: #FFFFFF;
+  --text: #4B3F72;
+  --radius-md: 12px;
+  --radius-sm: 6px;
 }
 
 * {
-  box-sizing: border-box;
-  font-family: "Shadows Into Light", cursive;
-  font-weight: 400;
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
   font-style: normal;
 }
 
@@ -21,100 +21,133 @@ body {
   font-family: system-ui, sans-serif;
   color: var(--text);
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-header button {
-  flex: 1;
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.abas {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.abas button {
+  background: var(--lavanda-claro);
   border: none;
-  background: transparent;
-  padding: 14px;
-  font-size: 11px;
-  color: var(--muted);
-}
-
-header button.active {
-  color: var(--text);
-  font-weight: bold;
-}
-
-/* Botões separados */
-button.btn-treino, button.btn-dieta {
-  padding: 8px 16px;
-  font-size: 12px;
-  width: 240px;
-  margin: 8px;
-  border: none;
-  border-radius: 12px;
-  background: var(--primary);
-  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: var(--radius-md);
   cursor: pointer;
+  font-weight: 600;
 }
 
-main {
-  padding: 14px;
-}
-
-section {
-  display: none;
-}
-
-section.active {
-  display: block;
+.abas button.active {
+  background: var(--lavanda-escuro);
+  color: white;
 }
 
 .card {
   background: var(--card);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post-it {
+  background: var(--lavanda);
+  padding: 10px;
+  border-radius: var(--radius-sm);
   margin-bottom: 12px;
-  width: 500px;
-}
-
-h2 {
-  font-size: 12px;
-  margin-bottom: 8px;
-}
-
-textarea {
   width: 100%;
+  text-align: center;
+  font-weight: 500;
+}
+
+.calendario-navegacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.calendario-navegacao button {
+  background: var(--lavanda-claro);
   border: none;
   border-radius: var(--radius-sm);
-  background: var(--card);
-  padding: 10px;
-  font-size: 11px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.calendario-navegacao span {
+  font-weight: 600;
 }
 
 .calendario {
   display: grid;
-  width: fit-content;
   grid-template-columns: repeat(7, 1fr);
   gap: 6px;
   width: fit-content;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
 }
 
-.dia-semana {
-  font-size: 9px;
-  text-align: center;
-  color: var(--muted);
-}
-
-.dia {
-  height: 50px;
-  width: 50px;
-  background: #91d9fd;
+.calendario div {
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
+  background: var(--lavanda-claro);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
   cursor: pointer;
+  user-select: none;
+  font-size: 14px;
 }
 
-.status {
-  font-size: 10px;
+.calendario .dias-semana {
+  font-weight: 600;
+  background: var(--lavanda-escuro);
+  color: white;
+  cursor: default;
+}
+
+textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #CCC;
+  resize: vertical;
+}
+
+.botoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.botoes button {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  background: var(--lavanda-claro);
+}
+
+.botoes button:hover {
+  background: var(--lavanda-escuro);
+  color: white;
+}
+
+.legenda {
+  margin: 6px 0;
+  font-size: 12px;
   text-align: center;
-  color: var(--muted);
 }

@@ -1,59 +1,142 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aesthetic Tracker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planner Treino e Dieta</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <div class="container">
 
-<header>
-  <button class="btn-treino" onclick="abrirTreino()">Treino</button>
-  <button class="btn-dieta" onclick="abrirDieta()">Dieta</button>
-</header>
-
-<main>
-
-  <!-- TREINO -->
-  <section id="treino" class="active">
-
-    <div class="card">
-      <h2>Treino Atual</h2>
-      <textarea id="textoTreino" placeholder="Digite seu treino"></textarea>
+    <!-- Abas -->
+    <div class="abas">
+      <button id="abaTreino" class="active">Treino</button>
+      <button id="abaDieta">Dieta</button>
     </div>
 
-    <div class="card">
-      <h2>📆 Constância</h2>
+    <!-- Treino -->
+    <div id="conteudoTreino" class="card aba-ativa">
+      <div class="post-it">
+        📝 Treino Atual:
+        <br>
+        TREINO 5x NA SEMANA (30–40 min)<br>
+<br>
+        👉 resultado mais rápido: 5x/semana<br>
+        👉 se cansar: 4x já funciona<br>
+        <br>
+
+        🔥 BLOCO 1 – QUEIMA & CINTURA (10 min)<br>
+<br>
+        Fazer em circuito (3 voltas):<br>
+<br>
+        Marcha alta com rotação de tronco – 40s<br>
+        (ativa core sem engrossar oblíquos)<br>
+<br>
+        Prancha dinâmica joelho ao peito (lenta) – 30s<br>
+        foco em puxar o umbigo pra dentro,<br>
+<br>
+        Polichinelo baixo (sem pular alto) – 40s<br>
+        mais gasto calórico, menos impacto<br>
+<br>
+        ⏱ descanso: 30s<br>
+
+        🍑 BLOCO 2 – GLÚTEOS (FOCO TOTAL) (15 min)<br>
+        <br>
+
+        Aqui é onde a gente modela sem engrossar:<br>
+
+        Ponte de glúteo lenta – 3x15<br>
+        🔹 3 segundos subindo, aperta em cima<br>
+<br>
+        Elevação de perna em quatro apoios – 3x12 cada perna<br>
+        🔹 perna levemente dobrada, empurra com o calcanhar<br>
+<br>
+        Abdução lateral deitada – 3x15<br>
+        🔹 deixa o pé levemente apontado pra baixo<br>
+<br>
+        Agachamento curto + pausa embaixo – 3x12<br>
+        🔹 não descer demais (evita coxa grande)<br>
+<br>
+        🧘‍♀️ BLOCO 3 – BRAÇOS FINOS + POSTURA (10 min)<br>
+<br>
+        Sem volume, só definição suave:<br>
+<br>
+        Flexão na parede ou joelhos – 2x10<br>
+        (controle total, sem falhar)<br>
+<br>
+        Prancha com apoio nos antebraços – 2x30s<br>
+        foco em cintura, não em braço<br>
+<br>
+        Isometria de ombro (braços abertos) – 2x20s<br>
+        ajuda a “afinar” visualmente o tronco<br>
+<br>
+        🌿 FINAL – AFINAR A CINTURA (5 min)<br>
+<br>
+        Essencial, não pula:<br>
+<br>
+        Vácuo abdominal – 3x20–30s<br>
+<br>
+        Alongamento lateral profundo<br>
+<br>
+        Respiração nasal lenta<br>
+<br>
+        👉 isso ajuda MUITO a deixar a cintura mais fina visualmente<br>
+      </div>
+
+      <div class="calendario-navegacao">
+        <button id="prevTreino">⬅</button>
+        <span id="mesTreino"></span>
+        <button id="nextTreino">➡</button>
+      </div>
+
       <div id="calendarioTreino" class="calendario"></div>
-      <p class="status">🔥 Sequência: <span id="strike">0</span> dias</p>
+
+      <div class="legenda">🔥 Consistência</div>
     </div>
 
-  </section>
+    <!-- Dieta -->
+    <div id="conteudoDieta" class="card aba-ativa" style="display:none;">
+      <div class="post-it">
+        🥗 Dieta Seguida:<br>
+        <br>
+        MÉTODO DO PRATO INVISÍVEL 🍽️<br>
+<br>
+        (você aplica mentalmente, sem mudar a comida da casa)
+<br>
+        Quando tiver comida pronta, pensa assim:
+<br>
+        ½ do prato → o que tiver de legumes/salada
+<br>
+        ¼ do prato → proteína (carne, frango, ovo, feijão)
+<br>
+        ¼ do prato → arroz, massa, batata, farofa
+<br>
+        👉 não precisa ser perfeito. é só direção.
+<br>
+        Se não tiver legumes?<br>
+        ➡️ diminui um pouco o carbo, pronto.<br>
+        <br>
+      </div>
 
-  <!-- DIETA -->
-  <section id="dieta">
+      <div class="calendario-navegacao">
+        <button id="prevDieta">⬅</button>
+        <span id="mesDieta"></span>
+        <button id="nextDieta">➡</button>
+      </div>
 
-    <div class="card">
-      <h2>Dieta atual</h2>
-      <textarea id="textoDieta" placeholder="Digite sua dieta"></textarea>
+      <div id="calendarioDieta" class="calendario"></div>
+
+      <div class="legenda">
+        🌸 Leve &nbsp;&nbsp; 🌼 Neutro &nbsp;&nbsp; 🌺 Pesado
+      </div>
     </div>
 
-    <div class="card">
-      <h2>🌸 Humor do dia</h2>
-      <div id="calendarioHumor" class="calendario"></div>
-      <p class="status">🌸 leve · 🌼 neutro · 🥀 pesado</p>
-    </div>
+  </div>
 
-    <div class="card">
-      <h2>📝 Notas</h2>
-      <textarea id="textoNotas"></textarea>
-    </div>
-
-  </section>
-
-</main>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,129 +1,125 @@
-const diasSemana = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+// Abas
+const abaTreino = document.getElementById("abaTreino");
+const abaDieta = document.getElementById("abaDieta");
+const conteudoTreino = document.getElementById("conteudoTreino");
+const conteudoDieta = document.getElementById("conteudoDieta");
 
-/* ===== ABAS ===== */
-function abrirTreino() {
-  document.getElementById('treino').classList.add('active');
-  document.getElementById('dieta').classList.remove('active');
-}
-
-function abrirDieta() {
-  document.getElementById('dieta').classList.add('active');
-  document.getElementById('treino').classList.remove('active');
-}
-
-/* ===== POST-IT TREINO E DIETA ===== */
-['textoTreino','textoDieta'].forEach(id => {
-  const el = document.getElementById(id);
-
-  // Carrega conteúdo salvo no localStorage
-  el.value = JSON.parse(localStorage.getItem(id)) ?? '';
-
-  // Salva a cada alteração
-  el.addEventListener('input', () => {
-    localStorage.setItem(id, JSON.stringify(el.value));
-  });
+abaTreino.addEventListener("click", () => {
+  abaTreino.classList.add("active");
+  abaDieta.classList.remove("active");
+  conteudoTreino.style.display = "flex";
+  conteudoDieta.style.display = "none";
 });
 
-/* ===== LOCAL STORAGE ===== */
-function salvar(key, valor) {
-  localStorage.setItem(key, JSON.stringify(valor));
-}
+abaDieta.addEventListener("click", () => {
+  abaDieta.classList.add("active");
+  abaTreino.classList.remove("active");
+  conteudoDieta.style.display = "flex";
+  conteudoTreino.style.display = "none";
+});
 
-function carregar(key, padrao) {
-  return JSON.parse(localStorage.getItem(key)) ?? padrao;
-}
+// Função calendário com navegação e dias da semana
+class Calendario {
+  constructor(containerId, mesSpanId, emoji, diasSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]) {
+    this.container = document.getElementById(containerId);
+    this.mesSpan = document.getElementById(mesSpanId);
+    this.emoji = emoji;
+    this.diasSemana = diasSemana;
+    this.dataAtual = new Date();
+    this.render();
+  }
 
-/* ===== CALENDÁRIO TREINO ===== */
-function criarCalendarioTreino() {
-  const c = document.getElementById('calendarioTreino');
-  const feitos = JSON.parse(localStorage.getItem('treinoDias')) || [];
-  let strike = feitos.length;
+  render() {
+    this.mesSpan.textContent = this.dataAtual.toLocaleString("pt-BR", { month: "long", year: "numeric" });
+    this.container.innerHTML = "";
 
-  const estados = ['','🔥']; // vazio ou foguinho
+    // Dias da semana
+    this.diasSemana.forEach(dia => {
+      const divDia = document.createElement("div");
+      divDia.textContent = dia;
+      divDia.classList.add("dias-semana");
+      this.container.appendChild(divDia);
+    });
 
-  // Cabeçalho dos dias da semana
-  diasSemana.forEach(d => {
-    const s = document.createElement('div');
-    s.className = 'dia-semana';
-    s.textContent = d;
-    c.appendChild(s);
-  });
+    const ano = this.dataAtual.getFullYear();
+    const mes = this.dataAtual.getMonth();
+    const primeiroDiaSemana = new Date(ano, mes, 1).getDay(); // 0 = Domingo
+    const diasNoMes = new Date(ano, mes + 1, 0).getDate();
 
-  for (let i = 1; i <= 30; i++) {
-    const d = document.createElement('div');
-    d.className = 'dia';
-
-    // Se já foi feito, mostra o foguinho
-    if (feitos.includes(i)) {
-      d.classList.add('feito');
-      d.textContent = `${i} ${estados[1]}`;
-    } else {
-      d.textContent = i;
+    // Preencher dias em branco até o primeiro dia
+    let startOffset = primeiroDiaSemana === 0 ? 6 : primeiroDiaSemana - 1; // Seg = 0
+    for (let i = 0; i < startOffset; i++) {
+      const vazio = document.createElement("div");
+      this.container.appendChild(vazio);
     }
 
-    // Clique para alternar
-    d.onclick = () => {
-      d.classList.toggle('feito');
-      const atualizados = [...document.querySelectorAll('#calendarioTreino .dia.feito')]
-        .map(el => Number(el.textContent));
+    // Dias do mês
+    for (let i = 1; i <= diasNoMes; i++) {
+      const dia = document.createElement("div");
+      dia.textContent = i;
 
-      // Atualiza texto com foguinho ou só o número
-      if (d.classList.contains('feito')) {
-        d.textContent = `${i} ${estados[1]}`;
-      } else {
-        d.textContent = i;
-      }
+      const saved = localStorage.getItem(`${this.container.id}-${ano}-${mes}-${i}`);
+      if (saved) dia.textContent += saved;
 
-      localStorage.setItem('treinoDias', JSON.stringify(atualizados));
-      document.getElementById('strike').textContent = atualizados.length;
-    };
+      dia.addEventListener("click", () => {
+        let current = dia.textContent.replace(/\d+/,"");
+        current = current ? "" : this.emoji;
+        dia.textContent = i + current;
+        localStorage.setItem(`${this.container.id}-${ano}-${mes}-${i}`, current);
+      });
 
-    c.appendChild(d);
+      this.container.appendChild(dia);
+    }
   }
 
-  // Atualiza o contador de strike
-  const strikeEl = document.getElementById('strike');
-  if(strikeEl) strikeEl.textContent = strike;
-}
+  mesAnterior() {
+    this.dataAtual.setMonth(this.dataAtual.getMonth() - 1);
+    this.render();
+  }
 
-/* ===== CALENDÁRIO HUMOR ===== */
-function criarCalendarioHumor() {
-  const c = document.getElementById('calendarioHumor');
-  const dados = carregar('humorDias', {});
-  const estados = ['','🌸','🌼','🥀'];
-
-  diasSemana.forEach(d => {
-    const s = document.createElement('div');
-    s.className = 'dia-semana';
-    s.textContent = d;
-    c.appendChild(s);
-  });
-
-  for (let i = 1; i <= 30; i++) {
-    const d = document.createElement('div');
-    d.className = 'dia';
-
-    let estado = dados[i] ?? 0;
-    d.textContent = `${i} ${estados[estado]}`;
-
-    d.onclick = () => {
-      estado = (estado + 1) % estados.length;
-      dados[i] = estado;
-      d.textContent = `${i} ${estados[estado]}`;
-      salvar('humorDias', dados);
-    };
-
-    c.appendChild(d);
+  proximoMes() {
+    this.dataAtual.setMonth(this.dataAtual.getMonth() + 1);
+    this.render();
   }
 }
 
-/* ===== TEXTOS ===== */
-['textoTreino','textoDieta','textoNotas'].forEach(id => {
-  const el = document.getElementById(id);
-  el.value = carregar(id, '');
-  el.oninput = () => salvar(id, el.value);
+// Inicializar calendários
+const calendarioTreino = new Calendario("calendarioTreino", "mesTreino", "🔥");
+const calendarioDieta = new Calendario("calendarioDieta", "mesDieta", "🌸");
+
+// Navegação
+document.getElementById("prevTreino").addEventListener("click", () => calendarioTreino.mesAnterior());
+document.getElementById("nextTreino").addEventListener("click", () => calendarioTreino.proximoMes());
+document.getElementById("prevDieta").addEventListener("click", () => calendarioDieta.mesAnterior());
+document.getElementById("nextDieta").addEventListener("click", () => calendarioDieta.proximoMes());
+
+// Botões Salvar / Excluir Treino
+const treinoEditavel = document.getElementById("treinoEditavel");
+document.getElementById("salvarTreino").addEventListener("click", () => {
+  localStorage.setItem("treinoNotas", treinoEditavel.value);
+  alert("Treino salvo!");
+});
+document.getElementById("excluirTreino").addEventListener("click", () => {
+  treinoEditavel.value = "";
+  localStorage.removeItem("treinoNotas");
 });
 
-/* INIT */
-criarCalendarioTreino();
-criarCalendarioHumor();
+// Botões Salvar / Excluir Dieta
+const dietaNotas = document.getElementById("dietaNotas");
+document.getElementById("salvarDieta").addEventListener("click", () => {
+  localStorage.setItem("dietaNotas", dietaNotas.value);
+  alert("Dieta salva!");
+});
+document.getElementById("excluirDieta").addEventListener("click", () => {
+  dietaNotas.value = "";
+  localStorage.removeItem("dietaNotas");
+});
+
+// Carregar notas salvas
+window.addEventListener("load", () => {
+  const savedTreino = localStorage.getItem("treinoNotas");
+  if (savedTreino) treinoEditavel.value = savedTreino;
+
+  const savedDieta = localStorage.getItem("dietaNotas");
+  if (savedDieta) dietaNotas.value = savedDieta;
+});
