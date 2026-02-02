@@ -81,8 +81,7 @@ textarea {
   width: 100%;
   border: none;
   border-radius: var(--radius-sm);
-  background: #c1ecff;
-  opacity: 0.2;
+  background: var(--card);
   padding: 10px;
   font-size: 11px;
 }
