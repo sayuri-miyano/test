@@ -1,0 +1,121 @@
+:root {
+  --bg: #d7f7ff;
+  --card: #b0e7fb;
+  --primary: #b0e7fb;
+  --text: #060507;
+  --muted: #1c1a22;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Shadows Into Light", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header button {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 14px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+header button.active {
+  color: var(--text);
+  font-weight: bold;
+}
+
+/* Botões separados */
+button.btn-treino, button.btn-dieta {
+  padding: 8px 16px;
+  font-size: 12px;
+  width: 240px;
+  margin: 8px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+main {
+  padding: 14px;
+}
+
+section {
+  display: none;
+}
+
+section.active {
+  display: block;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 12px;
+  width: 500px;
+}
+
+h2 {
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: #c1ecff;
+  opacity: 0.2;
+  padding: 10px;
+  font-size: 11px;
+}
+
+.calendario {
+  display: grid;
+  width: fit-content;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.dia-semana {
+  font-size: 9px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.dia {
+  height: 50px;
+  width: 50px;
+  background: #91d9fd;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.status {
+  font-size: 10px;
+  text-align: center;
+  color: var(--muted);
+}

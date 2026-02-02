@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aesthetic Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <button class="btn-treino" onclick="abrirTreino()">Treino</button>
+  <button class="btn-dieta" onclick="abrirDieta()">Dieta</button>
+</header>
+
+<main>
+
+  <!-- TREINO -->
+  <section id="treino" class="active">
+
+    <div class="card">
+      <h2>Treino Atual</h2>
+      <textarea id="textoTreino"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>📆 Constância</h2>
+      <div id="calendarioTreino" class="calendario"></div>
+      <p class="status">🔥 Sequência: <span id="strike">0</span> dias</p>
+    </div>
+
+  </section>
+
+  <!-- DIETA -->
+  <section id="dieta">
+
+    <div class="card">
+      <h2>Dieta atual</h2>
+      <textarea id="textoDieta"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>🌸 Humor do dia</h2>
+      <div id="calendarioHumor" class="calendario"></div>
+      <p class="status">🌸 leve · 🌼 neutro · 🥀 pesado</p>
+    </div>
+
+    <div class="card">
+      <h2>📝 Notas</h2>
+      <textarea id="textoNotas"></textarea>
+    </div>
+
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
